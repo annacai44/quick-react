@@ -2,7 +2,8 @@ import { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Banner from './components/Banner';
-import CourseList from './components/CourseList';
+import CourseList from './components/CourseList/CourseList';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const schedule = {
   "title": "CS Courses for 2018-2019",
@@ -38,7 +39,7 @@ const App = () => {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="App">
+    <div className="container">
       <Banner title={schedule.title}/>
       <CourseList courses={schedule.courses}/>
     </div>
