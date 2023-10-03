@@ -1,9 +1,9 @@
 import './CourseList.css';
 
-const CourseList = ({courses}) => {
+const CourseList = ({courses, term}) => {
     return (
         <div className="course-list">
-            { Object.entries(courses).map(([courseId, courseData]) => 
+            { Object.entries(courses).filter(([courseId, courseData]) => courseData.term === term).map(([courseId, courseData]) => 
                 <div className="card m-1 p-2" key={courseId}> 
                     <div className="card-body">
                         <h5 className="card-title">{courseData.term} {courseId}</h5>
