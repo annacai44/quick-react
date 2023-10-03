@@ -1,0 +1,8 @@
+.course .selected {
+    background-color:lemonchiffon;
+    color: green;
+  }
+
+.course-info {
+    height: 120px;
+}
