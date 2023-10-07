@@ -1,3 +1,4 @@
+import "./TermSelector.css";
 const terms = ["Fall", "Winter", "Spring"];
 
 const MenuButton = ({ term, selection, setSelection }) => (

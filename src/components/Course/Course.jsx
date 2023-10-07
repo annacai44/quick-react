@@ -3,10 +3,12 @@ const Course = ({ courseId, courseData, selected, toggleSelected }) => {
   return (
     <div
       className="course card m-1 p-2"
-      onClick={() => toggleSelected(courseId)}
+      onClick={selected ? () => toggleSelected(courseId) : null}
     >
       <div
-        className={`card-body ${selected.includes(courseId) ? "selected" : ""}`}
+        className={`card-body ${
+          selected && selected.includes(courseId) ? "selected" : ""
+        }`}
       >
         <div className="course-info">
           <h5 className="card-title">
