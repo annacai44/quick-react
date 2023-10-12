@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Banner from "./components/Banner";
+import Banner from "./components/Banner/Banner";
 import CourseList from "./components/CourseList/CourseList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
