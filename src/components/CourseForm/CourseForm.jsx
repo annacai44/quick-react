@@ -1,6 +1,7 @@
 import { useFormData } from "../../utilities/useFormData";
 import { useNavigate, useParams } from "react-router-dom";
 import { validateMeetingTime } from "../../utilities/catchConflicts";
+import { useDbUpdate } from "../../utilities/firebase";
 
 const validateUserData = (key, val) => {
   switch (key) {
@@ -38,25 +39,20 @@ const ButtonBar = ({ message, disabled }) => {
       <button
         type="button"
         className="btn btn-outline-dark me-2"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/")}
       >
         Cancel
       </button>
-      {/* <button
-        type="submit"
-        className="btn btn-primary me-auto"
-        disabled={disabled}
-      >
+      <button type="submit" className="btn btn-primary me-auto">
         Submit
-      </button> */}
+      </button>
       <span className="p-2">{message}</span>
     </div>
   );
 };
 
 const CourseForm = ({ courses }) => {
-  //   const [update, result] = useDbUpdate(`/users/${user.id}`);
-
+  const navigate = useNavigate();
   const { courseId } = useParams();
   const course = Object.entries(courses).filter(
     ([id, courseData]) => courseId === id
@@ -67,19 +63,30 @@ const CourseForm = ({ courses }) => {
     courseTitle: courseData.title,
     meetingTimes: courseData.meets,
   });
+
+  const [update, result] = useDbUpdate(`/courses/${courseId}/`);
+
   const submit = (evt) => {
     evt.preventDefault();
-    if (!state.errors) {
-      update(state.values);
+
+    // if values did not change, do not submit anything
+    if (
+      state.values.courseTitle === courseData.title &&
+      state.values.meetingTimes === courseData.meets
+    ) {
+      return;
     }
+
+    update({
+      title: state.values.courseTitle,
+      meets: state.values.meetingTimes,
+    });
+
+    navigate("/");
   };
 
   return (
-    <form
-      onSubmit={submit}
-      noValidate
-      className={state.errors ? "was-validated" : null}
-    >
+    <form onSubmit={submit} className={state.errors ? "was-validated" : null}>
       <InputField
         name="courseTitle"
         text="Course Title"
