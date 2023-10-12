@@ -1,14 +1,15 @@
 import { useFormData } from "../../utilities/useFormData";
 import { useNavigate, useParams } from "react-router-dom";
+import { validateMeetingTime } from "../../utilities/catchConflicts";
+
 const validateUserData = (key, val) => {
   switch (key) {
-    case "firstName":
-    case "lastName":
+    case "courseTitle":
       return /(^\w\w)/.test(val) ? "" : "must be least two characters";
-    case "email":
-      return /^\w+@\w+[.]\w+/.test(val)
+    case "meetingTimes":
+      return validateMeetingTime(val)
         ? ""
-        : "must contain name@domain.top-level-domain";
+        : "must contain days and start-end, e.g., MWF 12:00-13:20";
     default:
       return "";
   }
@@ -55,6 +56,7 @@ const ButtonBar = ({ message, disabled }) => {
 
 const CourseForm = ({ courses }) => {
   //   const [update, result] = useDbUpdate(`/users/${user.id}`);
+
   const { courseId } = useParams();
   const course = Object.entries(courses).filter(
     ([id, courseData]) => courseId === id
