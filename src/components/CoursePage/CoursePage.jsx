@@ -20,7 +20,6 @@ const CoursePage = ({ courses, term }) => {
     );
 
   useEffect(() => {
-    console.log("selected", selected);
     const conflictingCourses = [];
 
     for (const [courseId, courseData] of Object.entries(courses)) {
@@ -40,7 +39,6 @@ const CoursePage = ({ courses, term }) => {
     setUnselectable(conflictingCourses);
   }, [selected]);
 
-  console.log("unselectable!", unselectable);
   return (
     <div>
       <button className="btn btn-outline-dark" onClick={openModal}>
