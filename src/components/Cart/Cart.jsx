@@ -1,6 +1,6 @@
 import Course from "../Course/Course";
 
-const CoursePlan = ({ courses, selected }) => {
+const Cart = ({ courses, selected }) => {
   return (
     <div className="cart">
       {selected.length === 0 ? (
@@ -25,4 +25,4 @@ const CoursePlan = ({ courses, selected }) => {
   );
 };
 
-export default CoursePlan;
+export default Cart;
