@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useJsonQuery } from "./utilities/fetch";
 import CourseDisplay from "./components/CourseDisplay/CourseDisplay";
+import Dispatcher from "./components/Dispatcher/Dispatcher";
 
 const Main = () => {
   const [data, isLoading, error] = useJsonQuery(
@@ -20,7 +21,7 @@ const Main = () => {
   return (
     <div>
       <Banner title={data.title} />
-      <CourseDisplay courses={data.courses} />
+      <Dispatcher courses={data.courses} />
     </div>
   );
 };

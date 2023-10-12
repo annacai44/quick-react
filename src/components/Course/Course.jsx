@@ -1,4 +1,6 @@
+import { Button, Col } from "react-bootstrap";
 import "./Course.css";
+import { Link } from "react-router-dom";
 const Course = ({
   courseId,
   courseData,
@@ -6,7 +8,6 @@ const Course = ({
   toggleSelected,
   cannotSelect,
 }) => {
-  console.log(courseId, cannotSelect);
   return (
     <div
       className="course card m-1 p-2"
@@ -29,6 +30,11 @@ const Course = ({
           <p className="card-text">{courseData.meets}</p>
         </div>
       </div>
+      <Col>
+        <Link to={`/form/${courseId}`}>
+          <Button>Edit</Button>
+        </Link>
+      </Col>
     </div>
   );
 };
