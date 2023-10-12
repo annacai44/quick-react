@@ -1,14 +1,23 @@
 import "./Course.css";
-const Course = ({ courseId, courseData, selected, toggleSelected }) => {
+const Course = ({
+  courseId,
+  courseData,
+  selected,
+  toggleSelected,
+  cannotSelect,
+}) => {
+  console.log(courseId, cannotSelect);
   return (
     <div
       className="course card m-1 p-2"
-      onClick={selected ? () => toggleSelected(courseId) : null}
+      onClick={
+        selected && !cannotSelect ? () => toggleSelected(courseId) : null
+      }
     >
       <div
         className={`card-body ${
           selected && selected.includes(courseId) ? "selected" : ""
-        }`}
+        } ${cannotSelect ? "unselectable" : ""}`}
       >
         <div className="course-info">
           <h5 className="card-title">

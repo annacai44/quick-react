@@ -1,7 +1,13 @@
 import "./CourseList.css";
 import Course from "../Course/Course";
 
-const CourseList = ({ courses, term, selected, toggleSelected }) => {
+const CourseList = ({
+  courses,
+  term,
+  selected,
+  toggleSelected,
+  unselectable,
+}) => {
   return (
     <div className="course-list">
       {Object.entries(courses)
@@ -13,6 +19,7 @@ const CourseList = ({ courses, term, selected, toggleSelected }) => {
             courseData={courseData}
             selected={selected}
             toggleSelected={toggleSelected}
+            cannotSelect={unselectable.includes(courseId)}
           />
         ))}
     </div>
