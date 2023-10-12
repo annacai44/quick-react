@@ -2,7 +2,7 @@ import TermSelector from "../TermSelector/TermSelector";
 import CoursePage from "../CoursePage/CoursePage";
 import { useState } from "react";
 
-const TermPage = ({ courses }) => {
+const CourseDisplay = ({ courses }) => {
   const [term, setTerm] = useState("Fall");
 
   return (
@@ -13,4 +13,4 @@ const TermPage = ({ courses }) => {
   );
 };
 
-export default TermPage;
+export default CourseDisplay;
