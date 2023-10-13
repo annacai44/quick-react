@@ -2,6 +2,7 @@ import { Button, Col } from "react-bootstrap";
 import "./Course.css";
 import { Link } from "react-router-dom";
 import { useAuthState } from "../../utilities/firebase";
+import { useProfile } from "../../utilities/profile";
 const Course = ({
   courseId,
   courseData,
@@ -9,7 +10,7 @@ const Course = ({
   toggleSelected,
   cannotSelect,
 }) => {
-  const [user] = useAuthState();
+  const [{ user, isAdmin }, isLoading, error] = useProfile();
   return (
     <div
       className="course card m-1 p-2"
@@ -32,7 +33,7 @@ const Course = ({
           <p className="card-text">{courseData.meets}</p>
         </div>
       </div>
-      {user ? (
+      {user && isAdmin ? (
         <Col>
           <Link to={`/form/${courseId}`}>
             <Button>Edit</Button>
