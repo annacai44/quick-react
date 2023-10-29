@@ -14,6 +14,7 @@ const Course = ({
   return (
     <div
       className="course card m-1 p-2"
+      data-cy="course"
       onClick={
         selected && !cannotSelect ? () => toggleSelected(courseId) : null
       }
@@ -25,7 +26,7 @@ const Course = ({
       >
         <div className="course-info">
           <h5 className="card-title">
-            {courseData.term} {courseId}
+            {courseData.term} CS {courseId}
           </h5>
           <p className="card-text">{courseData.title}</p>
         </div>
