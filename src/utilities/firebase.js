@@ -1,17 +1,26 @@
 import { initializeApp } from "firebase/app";
 import { useEffect, useState, useCallback } from "react";
-import { getDatabase, onValue, ref, update } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  ref,
+  update,
+  connectDatabaseEmulator,
+} from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
   signOut,
+  connectAuthEmulator,
+  signInWithCredential,
 } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnarwhCeeoXOWHrjaMHngZAdJEXeETFOQ",
   authDomain: "quick-react-7c954.firebaseapp.com",
+  databaseURL: "https://quick-react-7c954.firebaseio.com",
   projectId: "quick-react-7c954",
   storageBucket: "quick-react-7c954.appspot.com",
   messagingSenderId: "495481934199",
@@ -20,7 +29,23 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
 const database = getDatabase(firebase);
+
+if (!globalThis.EMULATION && import.meta.env.MODE === "development") {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+
+  signInWithCredential(
+    auth,
+    GoogleAuthProvider.credential(
+      '{"sub": "IDxDW7ID5vT6aDnmLLDpGnHFd5su", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+    )
+  );
+
+  // set flag to avoid connecting twice, e.g., because of an editor hot-reload
+  globalThis.EMULATION = true;
+}
 
 export const useDbData = (path) => {
   const [data, setData] = useState();
@@ -65,17 +90,17 @@ export const useDbUpdate = (path) => {
 };
 
 export const signInWithGoogle = () => {
-  signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+  signInWithPopup(auth, new GoogleAuthProvider());
 };
 
-const firebaseSignOut = () => signOut(getAuth(firebase));
+const firebaseSignOut = () => signOut(auth);
 
 export { firebaseSignOut as signOut };
 
 export const useAuthState = () => {
   const [user, setUser] = useState();
 
-  useEffect(() => onAuthStateChanged(getAuth(firebase), setUser), []);
+  useEffect(() => onAuthStateChanged(auth, setUser), []);
 
   return [user];
 };
