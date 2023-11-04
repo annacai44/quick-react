@@ -20,7 +20,10 @@ import {
 const firebaseConfig = {
   apiKey: "AIzaSyCnarwhCeeoXOWHrjaMHngZAdJEXeETFOQ",
   authDomain: "quick-react-7c954.firebaseapp.com",
-  databaseURL: "https://quick-react-7c954.firebaseio.com",
+  databaseURL:
+    import.meta.env.MODE === "production"
+      ? "https://quick-react-7c954-default-rtdb.firebaseio.com"
+      : "https://quick-react-7c954.firebaseio.com",
   projectId: "quick-react-7c954",
   storageBucket: "quick-react-7c954.appspot.com",
   messagingSenderId: "495481934199",
